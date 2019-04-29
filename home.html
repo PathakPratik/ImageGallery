@@ -1,0 +1,144 @@
+<html>
+<head>
+    <title>
+        Gallery
+    </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="gallery_icon"><i class="fa fa-file-image-o" aria-hidden="true"></i> Image Gallery</div>
+        <!--div class="search-bar-menu">
+            <input type="text" class="search-bar" width="100%">
+        </div>
+        <div>
+            <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
+        </div-->
+    </div>
+    <div class="container">
+        <div><img src="img1.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="1" ></div>
+        <div><img src="img2.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="2"></div>
+        <div><img src="img3.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="3"></div>
+        <div><img src="img4.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="4"></div>
+        <div><img src="img5.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="5"></div>
+        <div><img src="img6.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="6"></div>
+        <div><img src="img7.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="7"></div>
+        <div><img src="img8.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="8"></div>
+        <div><img src="img9.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="9"></div>
+        <div><img src="img10.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="10"></div>
+    </div>
+    <div class="footer"></div>
+    <!-- Full Screen Modal -->
+    <div id="preview-mode" class="modal">
+      <span class="close cursor" onclick="closeModal()">&times;</span>
+      <div class="modal-content">
+
+        <div class="current" data-id="1">
+          <div class="numbertext">1 / 10</div>
+          <img src="img1.jpg" width="100%" height="100%">
+        </div>
+
+        <div class="current" data-id="2">
+          <div class="numbertext">2 / 10</div>
+          <img src="img2.jpg" width="100%" height="100%">
+        </div>
+
+        <div class="current" data-id="3">
+          <div class="numbertext">3 / 10</div>
+          <img src="img3.jpg" width="100%" height="100%">
+        </div>
+
+        <div class="current" data-id="4">
+          <div class="numbertext">4 / 10</div>
+          <img src="img4.jpg" width="100%" height="100%">
+        </div>
+
+        <div class="current" data-id="5">
+          <div class="numbertext">5 / 10</div>
+          <img src="img5.jpg" width="100%" height="100%">
+        </div>
+
+        <div class="current" data-id="6">
+          <div class="numbertext">6 / 10</div>
+          <img src="img6.jpg" width="100%" height="100%">
+        </div>
+
+        <div class="current" data-id="7">
+          <div class="numbertext">7 / 10</div>
+          <img src="img7.jpg" width="100%" height="100%">
+        </div>
+
+        <div class="current" data-id="8">
+          <div class="numbertext">8 / 10</div>
+          <img src="img8.jpg" width="100%" height="100%">
+        </div>
+
+        <div class="current" data-id="9">
+          <div class="numbertext">9 / 10</div>
+          <img src="img9.jpg" width="100%" height="100%">
+        </div>
+
+        <div class="current" data-id="10">
+          <div class="numbertext">10 / 10</div>
+          <img src="img10.jpg" width="100%" height="100%">
+        </div>
+
+        <a class="prev" onclick="changeImg(-1)">&#10094;</a>
+        <a class="next" onclick="changeImg(1)">&#10095;</a>
+
+        <div class="caption-container">
+          <p id="caption"></p>
+        </div>
+      </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+
+        function openModal(that){
+
+            var selected = that.getAttribute('data-id');
+
+            document.getElementById('preview-mode').style.display = "flex";
+
+            var images = document.getElementsByClassName('current');
+            for( var i=0; i< images.length; i++ )
+            {
+               if( images[i].getAttribute('data-id') != selected )
+                    images[i].style.display = "none";
+               else
+                    images[i].style.display = "block";
+            }
+
+        }
+
+        function changeImg(next_prev){
+
+            var images = document.getElementsByClassName('current');
+            var selected = 0;
+
+            for( var i=0; i< images.length; i++ )
+            {
+                if( images[i].style.display == "block" )
+                {
+                     images[i].style.display = "none";
+                     selected = i+next_prev;
+                }
+            }
+
+            if( selected > (images.length - 1) )
+                selected = 0;
+            else if( selected < 0 )
+                selected = (images.length - 1);
+
+            images[selected].style.display = "block";
+
+        }
+
+        function closeModal(){
+            document.getElementById('preview-mode').style.display = "none";
+        }
+    </script>
+</body>
+</html>
