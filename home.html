@@ -1,145 +1,174 @@
 <html>
-<head>
-    <title>
-        Gallery
-    </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="navbar">
-        <div class="gallery_icon"><i class="fa fa-file-image-o" aria-hidden="true"></i> Image Gallery</div>
-        <!--div class="search-bar-menu">
-            <input type="text" class="search-bar" width="100%">
-        </div>
-        <div>
-            <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
-        </div-->
-    </div>
-    <div class="container">
-        <div><img src="./images/img1.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="1" ></div>
-        <div><img src="./images/img2.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="2"></div>
-        <div><img src="./images/img3.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="3"></div>
-        <div><img src="./images/img4.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="4"></div>
-        <div><img src="./images/img5.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="5"></div>
-        <div><img src="./images/img6.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="6"></div>
-        <div><img src="./images/img7.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="7"></div>
-        <div><img src="./images/img8.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="8"></div>
-        <div><img src="./images/img9.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="9"></div>
-        <div><img src="./images/img10.jpg" width="100%" height="100%" onclick="openModal(this)" data-id="10"></div>
-    </div>
-    <div class="footer"></div>
-    <!-- Full Screen Modal -->
-    <div id="preview-mode" class="modal">
-      <span class="close cursor" onclick="closeModal()">&times;</span>
-      <div class="modal-content">
+    <head>
+        <title>
+            Image Gallery
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
 
-        <div class="current" data-id="1">
-          <div class="numbertext">1 / 10</div>
-          <img src="./images/img1.jpg" width="100%" height="100%">
-        </div>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+    </body>
+    <script type="text/babel">
 
-        <div class="current" data-id="2">
-          <div class="numbertext">2 / 10</div>
-          <img src="./images/img2.jpg" width="100%" height="100%">
-        </div>
+        var images = [ './images/img1.jpg' , './images/img2.jpg', './images/img3.jpg', './images/img4.jpg', './images/img5.jpg', './images/img6.jpg', './images/img7.jpg', './images/img8.jpg', './images/img9.jpg', './images/img10.jpg' ];
 
-        <div class="current" data-id="3">
-          <div class="numbertext">3 / 10</div>
-          <img src="./images/img3.jpg" width="100%" height="100%">
-        </div>
-
-        <div class="current" data-id="4">
-          <div class="numbertext">4 / 10</div>
-          <img src="./images/img4.jpg" width="100%" height="100%">
-        </div>
-
-        <div class="current" data-id="5">
-          <div class="numbertext">5 / 10</div>
-          <img src="./images/img5.jpg" width="100%" height="100%">
-        </div>
-
-        <div class="current" data-id="6">
-          <div class="numbertext">6 / 10</div>
-          <img src="./images/img6.jpg" width="100%" height="100%">
-        </div>
-
-        <div class="current" data-id="7">
-          <div class="numbertext">7 / 10</div>
-          <img src="./images/img7.jpg" width="100%" height="100%">
-        </div>
-
-        <div class="current" data-id="8">
-          <div class="numbertext">8 / 10</div>
-          <img src="./images/img8.jpg" width="100%" height="100%">
-        </div>
-
-        <div class="current" data-id="9">
-          <div class="numbertext">9 / 10</div>
-          <img src="./images/img9.jpg" width="100%" height="100%">
-        </div>
-
-        <div class="current" data-id="10">
-          <div class="numbertext">10 / 10</div>
-          <img src="./images/img10.jpg" width="100%" height="100%">
-        </div>
-
-        <a class="prev" onclick="changeImg(-1)">&#10094;</a>
-        <a class="next" onclick="changeImg(1)">&#10095;</a>
-
-        <div class="caption-container">
-          <p id="caption"></p>
-        </div>
-      </div>
-    </div>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script>
-
-        function openModal(that){
-
-            var selected = that.getAttribute('data-id');
-
-            document.getElementById('preview-mode').style.display = "flex";
-
-            var images = document.getElementsByClassName('current');
-            for( var i=0; i< images.length; i++ )
-            {
-               if( images[i].getAttribute('data-id') != selected )
-                    images[i].style.display = "none";
-               else
-                    images[i].style.display = "block";
-            }
-
+        class App extends React.Component{
+         render(){
+          return (
+              <div>
+                <NavBar/>
+                <ImageGrid/>
+                <Footer/>
+              </div>
+          );
+         }
         }
 
-        function changeImg(next_prev){
-
-            var images = document.getElementsByClassName('current');
-            var selected = 0;
-
-            for( var i=0; i< images.length; i++ )
-            {
-                if( images[i].style.display == "block" )
-                {
-                     images[i].style.display = "none";
-                     selected = i+next_prev;
-                }
-            }
-
-            if( selected > (images.length - 1) )
-                selected = 0;
-            else if( selected < 0 )
-                selected = (images.length - 1);
-
-            images[selected].style.display = "block";
-
+        class NavBar extends React.Component{
+         render(){
+          return (
+            <div className="navbar">
+                <div className="gallery_icon"><i className="fa fa-file-image-o" aria-hidden="true"></i> Image Gallery</div>
+            </div>
+          );
+         }
         }
 
-        function closeModal(){
-            document.getElementById('preview-mode').style.display = "none";
+    class ImageGrid extends React.Component{
+
+        constructor(props) {
+           super(props);
+
+           this.state = {showModal:false};
+           //this.showModal = this.showModal.bind(this);
+         }
+
+        showModal(index)
+        {
+            this.setState({showModal:true, current: index});
         }
+
+         render(){
+          return (
+            <div className="container">
+
+                {images.map((img, index) =>
+                    <Image imgSrc = {img} showModalFn={this.showModal.bind(this,index)} />
+                )}
+
+                <PreviewModal showModal={this.state.showModal} currentImg={this.state.current} />
+            </div>
+          );
+         }
+        }
+
+        class Image extends React.Component{
+         render(){
+          return (
+            <div>
+                <img src={this.props.imgSrc} className="grid-img" onClick={this.props.showModalFn} />
+            </div>
+          );
+         }
+        }
+
+        class Footer extends React.Component{
+         render(){
+          return (
+            <div>
+
+            </div>
+          );
+         }
+        }
+
+        class PreviewModal extends React.Component{
+
+             constructor(props) {
+               super(props);
+
+               this.state = { showModal: props.showModal };
+               this.closeModal = this.closeModal.bind(this);
+             }
+
+             componentWillReceiveProps( update ) {
+               this.setState({showModal: update.showModal, currentImg: update.currentImg });
+             }
+
+             closeModal(){
+                this.setState({showModal:false});
+             }
+
+             changeImg(next_prev){
+
+                let current = this.state.currentImg;
+
+                let change = current + next_prev;
+
+                let max = images.length - 1;
+
+                if( change > max )
+                    change = 0;
+
+                if( change < 0 )
+                    change = max;
+
+                this.setState({ currentImg: change });
+             }
+
+             render(){
+              return (
+                <div id="preview-mode" style={{ display: this.state.showModal ? 'flex' : 'none'}} className="modal">
+                  <span className="close cursor" onClick={this.closeModal}>&times;</span>
+                  <div className="modal-content">
+                    <PreviewImages currentImg={this.state.currentImg} />
+                    <NextPreviousBtns changeImgFn={this.changeImg.bind(this)} />
+                  </div>
+                </div>
+              );
+             }
+        }
+
+        class PreviewImages extends React.Component{
+         render(){
+          return (
+            <div>
+                <div className="current">
+                  <div className="numbertext"> {this.props.currentImg + 1} / {images.length}</div>
+                  <img src={images[this.props.currentImg]} width="100%" height="100%" />
+                </div>
+            </div>
+          );
+         }
+        }
+
+        class NextPreviousBtns extends React.Component{
+
+         changeImg(next_prev){
+             this.props.changeImgFn(next_prev);
+         }
+
+         render(){
+          return (
+              <div>
+                <a className="prev" onClick={this.changeImg.bind(this, -1)} >&#10094;</a>
+                <a className="next" onClick={this.changeImg.bind(this, 1)} >&#10095;</a>
+              </div>
+          );
+         }
+        }
+
+        ReactDOM.render(
+         <App />,
+         document.getElementById('root')
+        );
     </script>
-</body>
 </html>

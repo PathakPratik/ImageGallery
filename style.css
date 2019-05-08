@@ -62,7 +62,7 @@
 }
 /* The Modal (background) */
 #preview-mode {
-  display: none;
+  display: flex;
   position: fixed;
   z-index: 1;
   left: 0;
